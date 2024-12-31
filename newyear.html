@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Year Countdown</title>
+  <style>
+    /* ตั้งค่าพื้นหลัง */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: url('https://www.wallpaperswide.com/download/new_year_2024-1920x1080.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* หัวข้อปีใหม่ */
+    h1 {
+      font-size: 5rem;
+      text-align: center;
+      color: #FFD700; /* สีทอง */
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.8);
+      margin-bottom: 30px;
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0% {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.8);
+      }
+      50% {
+        text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.8);
+      }
+      100% {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    /* สไตล์ของเค้าท์ดาวน์ */
+    .countdown {
+      display: flex;
+      gap: 30px;
+      font-size: 4rem;
+      font-weight: bold;
+      letter-spacing: 5px;
+      justify-content: center;
+      animation: pulseGlow 1.5s ease-in-out infinite;
+    }
+
+    .countdown span {
+      display: inline-block;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+      text-align: center;
+      color: #FFD700;
+      transform: scale(1);
+      transition: transform 0.3s;
+    }
+
+    .countdown span:hover {
+      transform: scale(1.1);
+    }
+
+    .countdown span .label {
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 5px;
+      display: block;
+    }
+
+    /* แอนิเมชันเคลื่อนที่ของการ์ตูน */
+    .cartoon {
+      position: absolute;
+      top: 10%;
+      left: -200px;
+      width: 150px;
+      height: 150px;
+      background-image: url('https://example.com/path/to/your/cartoon-character.gif'); /* เปลี่ยนลิงก์เป็นการ์ตูนที่คุณต้องการ */
+      background-size: cover;
+      animation: cartoonMove 20s linear infinite;
+    }
+
+    @keyframes cartoonMove {
+      0% {
+        left: -200px;
+      }
+      50% {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      100% {
+        left: 100%;
+      }
+    }
+
+    /* ปุ่มเริ่มต้น (หากต้องการ) */
+    .start-button {
+      background-color: rgba(0, 0, 0, 0.7);
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    .start-button:hover {
+      background-color: rgba(255, 138, 0, 0.7);
+      transform: scale(1.1);
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Happy New Year 2025!</h1>
+  <div class="countdown">
+    <span id="days"><span class="label">Days</span> 00</span>
+    <span id="hours"><span class="label">Hours</span> 00</span>
+    <span id="minutes"><span class="label">Minutes</span> 00</span>
+    <span id="seconds"><span class="label">Seconds</span> 00</span>
+  </div>
+  <div class="cartoon"></div>
+  
+  <script>
+    // วันที่เป้าหมายของเค้าท์ดาวน์ (ปีใหม่ 2025)
+    const newYear = new Date("Jan 1, 2025 00:00:00").getTime();
+
+    // ฟังก์ชันคำนวณเค้าท์ดาวน์
+    const countdownTimer = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = newYear - now;
+
+      // คำนวณวัน ชั่วโมง นาที วินาที
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // แสดงผลลัพธ์เค้าท์ดาวน์
+      document.getElementById("days").innerHTML = `<span class="label">Days</span> ${days < 10 ? '0' + days : days}`;
+      document.getElementById("hours").innerHTML = `<span class="label">Hours</span> ${hours < 10 ? '0' + hours : hours}`;
+      document.getElementById("minutes").innerHTML = `<span class="label">Minutes</span> ${minutes < 10 ? '0' + minutes : minutes}`;
+      document.getElementById("seconds").innerHTML = `<span class="label">Seconds</span> ${seconds < 10 ? '0' + seconds : seconds}`;
+
+      // เมื่อเค้าท์ดาวน์ถึง 0
+      if (distance < 0) {
+        clearInterval(countdownTimer);
+        document.querySelector("h1").innerText = "Happy New Year 2025!";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
+    
